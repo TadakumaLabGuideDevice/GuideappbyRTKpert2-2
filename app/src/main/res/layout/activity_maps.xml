@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context=".MapsActivity">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
+
+    <TextView
+        android:id="@+id/bluetooth_tx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gps_tx"
+        android:layout_alignStart="@+id/gps_tx"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/bluetooth_state"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <Button
+        android:id="@+id/connect_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bluetooth_tx"
+        android:layout_alignStart="@+id/bluetooth_tx"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/connect" />
+
+    <Button
+        android:id="@+id/start_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/connect_bt"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0px"
+        android:layout_toEndOf="@+id/connect_bt"
+        android:text="@string/start" />
+
+    <Button
+        android:id="@+id/stop_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/start_bt"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0px"
+        android:layout_toEndOf="@+id/start_bt"
+        android:text="@string/stop" />
+
+    <Button
+        android:id="@+id/voice_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/stop_bt"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0px"
+        android:layout_toEndOf="@+id/stop_bt"
+        android:text="@string/voice" />
+
+    <TextView
+        android:id="@+id/gps_tx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/map"
+        android:layout_marginStart="5dp"
+        android:text="@string/gps_state"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/gpsState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/gps_tx"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/bluetoothState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/bluetooth_tx"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/bluetooth_tx"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/current_lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/connect_bt"
+        android:layout_alignStart="@+id/map"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="400dp"
+        android:text="@string/current_lat"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/current_lng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/current_lat"
+        android:layout_alignStart="@+id/current_lat"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/current_lng"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/current_lng"
+        android:layout_alignStart="@+id/current_lng"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/status_activity"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/mag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/status"
+        android:layout_alignStart="@+id/status"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/Mag"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/mag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mag"
+        android:layout_alignStart="@+id/mag"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/textview"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
+</RelativeLayout>

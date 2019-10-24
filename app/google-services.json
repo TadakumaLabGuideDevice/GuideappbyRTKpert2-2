@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "687356460489",
+    "firebase_url": "https://guide-device-and-1562301608260.firebaseio.com",
+    "project_id": "guide-device-and-1562301608260",
+    "storage_bucket": "guide-device-and-1562301608260.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687356460489:android:690df3487a7dba84",
+        "android_client_info": {
+          "package_name": "com.example.guideappbyrtk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687356460489-bs20u2gb8qojqq9ios8cave8io5ir30m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guideappbyrtk",
+            "certificate_hash": "16daf6f5afcfa7c49a58b517c5849f8b7fdda742"
+          }
+        },
+        {
+          "client_id": "687356460489-ip4lm1srppo22k3n20m4co16idcj3u7i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_RZ8IaXUvTuLxSDSICa-6v1_8YlF5Ro8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687356460489-ip4lm1srppo22k3n20m4co16idcj3u7i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

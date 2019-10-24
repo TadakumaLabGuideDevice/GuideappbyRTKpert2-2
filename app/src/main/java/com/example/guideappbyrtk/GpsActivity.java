@@ -68,7 +68,7 @@ public class GpsActivity extends LocationCallback {
             return;
         }
 
-        //MapsActivity.gpsState.setText(R.string.gps_enable);
+        MapsActivity.gpsState.setText(R.string.gps_enable);
         LocationRequest request = new LocationRequest();
         request.setFastestInterval(1000);
         request.setInterval(1000);
@@ -107,8 +107,8 @@ public class GpsActivity extends LocationCallback {
     }
 
     public void setMockLocation(){
+        fusedLocationProviderClient.setMockMode(true);
         fusedLocationProviderClient.setMockLocation(createNorthPoleLocation());
-        //.setMockMode(true);
     }
 
     public Location createNorthPoleLocation(){

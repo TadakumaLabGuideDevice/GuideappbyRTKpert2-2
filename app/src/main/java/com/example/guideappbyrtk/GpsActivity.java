@@ -11,6 +11,7 @@ import android.provider.Settings;
 
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -20,8 +21,18 @@ import com.google.android.gms.location.LocationServices;
 public class GpsActivity extends LocationCallback {
     private static final int LOCATION_REQUEST_CODE = 1;
     private Context context;
-    public FusedLocationProviderClient fusedLocationProviderClient;
+    private FusedLocationProviderClient fusedLocationProviderClient;
     private OnLocationResultListener mListener;
+    GoogleApiClient googleApiClient;
+    private static final String NORTH_POLE =
+            "com.google.android.gms.location.sample.locationupdates" + ".NORTH_POLE";
+
+    private static final float NORTH_POLE_LATITUDE = 90.0f;
+
+    private static final float NORTH_POLE_LONGITUDE = 0.0f;
+
+    private static final float ACCURACY_IN_METERS = 10.0f;
+
 
     public interface OnLocationResultListener {
         void onLocationResult(LocationResult locationResult);
@@ -59,6 +70,7 @@ public class GpsActivity extends LocationCallback {
 
         MapsActivity.gpsState.setText(R.string.gps_enable);
         LocationRequest request = new LocationRequest();
+        request.setFastestInterval(1000);
         request.setInterval(1000);
         request.setPriority(LocationRequest.PRIORITY_NO_POWER);
 
@@ -94,9 +106,18 @@ public class GpsActivity extends LocationCallback {
                 .show();
     }
 
-    public void setMockLocation(Location location){
-        fusedLocationProviderClient.setMockLocation(location);
+    public void setMockLocation(){
+        fusedLocationProviderClient.setMockLocation(createNorthPoleLocation());
         fusedLocationProviderClient.setMockMode(true);
+    }
+
+    public Location createNorthPoleLocation(){
+        Location mockLocation = new Location(NORTH_POLE);
+        mockLocation.setLatitude(NORTH_POLE_LATITUDE);
+        mockLocation.setLongitude(NORTH_POLE_LONGITUDE);
+        mockLocation.setAccuracy(ACCURACY_IN_METERS);
+        mockLocation.setTime(System.currentTimeMillis());
+        return mockLocation;
     }
 }
 

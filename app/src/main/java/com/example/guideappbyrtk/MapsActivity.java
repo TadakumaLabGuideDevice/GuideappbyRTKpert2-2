@@ -29,6 +29,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -100,6 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //GpsActivityのインスタンス生成
     private GpsActivity gpsActivity;
     private LocationManager manager;
+    private FusedLocationProviderClient fusedLocationProviderClient;
     Location mockLocation;
     //private Location location;
 
@@ -250,11 +252,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //アプリ立ち上げ時
     protected void onResume() {
         super.onResume();
-
         //GPS起動
+
         gpsActivity = new GpsActivity(this ,this);
-        //mockLocation = new Location(location);
-        gpsActivity.setMockLocation(mockLocation);
+        //mockLocation = new Location();
+        //gpsActivity.fusedLocationProviderClient.setMockMode(true);
+        gpsActivity.setMockLocation();
         gpsActivity.startLocationUpdates();
 
 

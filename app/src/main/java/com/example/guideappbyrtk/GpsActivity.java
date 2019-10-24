@@ -21,7 +21,7 @@ import com.google.android.gms.location.LocationServices;
 public class GpsActivity extends LocationCallback {
     private static final int LOCATION_REQUEST_CODE = 1;
     private Context context;
-    private FusedLocationProviderClient fusedLocationProviderClient;
+    public FusedLocationProviderClient fusedLocationProviderClient;
     private OnLocationResultListener mListener;
     GoogleApiClient googleApiClient;
     private static final String NORTH_POLE =
@@ -108,7 +108,7 @@ public class GpsActivity extends LocationCallback {
 
     public void setMockLocation(){
         fusedLocationProviderClient.setMockLocation(createNorthPoleLocation());
-        fusedLocationProviderClient.setMockMode(true);
+        //.setMockMode(true);
     }
 
     public Location createNorthPoleLocation(){

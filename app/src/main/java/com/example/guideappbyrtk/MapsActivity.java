@@ -221,6 +221,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //GPS設定----------------------------------------------------------------------------
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        gpsActivity = new GpsActivity(this ,this);
+        gpsActivity.setMockLocation();
+        gpsActivity.startLocationUpdates();
 
         //boolean GPSFlg = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         //gpsTx.setText(GPSstatus);
@@ -254,11 +257,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
         //GPS起動
 
-        gpsActivity = new GpsActivity(this ,this);
         //mockLocation = new Location();
         //gpsActivity.fusedLocationProviderClient.setMockMode(true);
-        gpsActivity.setMockLocation();
-        gpsActivity.startLocationUpdates();
 
 
         //加速度センサ、地磁気センサ起動

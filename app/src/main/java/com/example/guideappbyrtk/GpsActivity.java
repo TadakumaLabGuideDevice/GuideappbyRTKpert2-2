@@ -107,7 +107,7 @@ public class GpsActivity extends LocationCallback {
     }
 
     public void setMockLocation(){
-        fusedLocationProviderClient.setMockMode(true);
+        //fusedLocationProviderClient.setMockMode(true);
         fusedLocationProviderClient.setMockLocation(createNorthPoleLocation());
     }
 

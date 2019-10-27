@@ -224,7 +224,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         gpsActivity = new GpsActivity(this ,this);
         gpsActivity.fusedLocationProviderClient.setMockMode(true);
         gpsActivity.setMockLocation();
-        gpsActivity.startLocationUpdates();
+
 
         //boolean GPSFlg = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         //gpsTx.setText(GPSstatus);
@@ -260,7 +260,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //mockLocation = new Location();
         //gpsActivity.fusedLocationProviderClient.setMockMode(true);
-
+        gpsActivity.startLocationUpdates();
 
         //加速度センサ、地磁気センサ起動
         s1 = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

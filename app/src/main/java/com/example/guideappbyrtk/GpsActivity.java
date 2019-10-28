@@ -1,15 +1,10 @@
 package com.example.guideappbyrtk;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.provider.Settings;
-
-import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -52,21 +47,21 @@ public class GpsActivity extends LocationCallback {
 
     public void startLocationUpdates() {
         // パーミッションの確認
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        /*if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //Logger.d("Permission required.");
             ActivityCompat.requestPermissions((Activity) context, new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,}, LOCATION_REQUEST_CODE);
 
             return;
-        }
+        }*/
 
         // 端末の位置情報サービスが無効になっている場合、設定画面を表示して有効化を促す
-        if (!isGPSEnabled()) {
+        /*if (!isGPSEnabled()) {
             MapsActivity.gpsState.setText(R.string.gps_disable);
             showLocationSettingDialog();
             return;
-        }
+        }*/
 
         MapsActivity.gpsState.setText(R.string.gps_enable);
         LocationRequest request = new LocationRequest();
@@ -81,10 +76,10 @@ public class GpsActivity extends LocationCallback {
         fusedLocationProviderClient.removeLocationUpdates(this);
     }
 
-    private Boolean isGPSEnabled() {
+    /*private Boolean isGPSEnabled() {
         android.location.LocationManager locationManager = (android.location.LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER);
-    }
+    }*/
 
     private void showLocationSettingDialog() {
         new android.app.AlertDialog.Builder(context)

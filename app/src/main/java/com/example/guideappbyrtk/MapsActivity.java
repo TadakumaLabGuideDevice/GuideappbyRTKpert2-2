@@ -223,6 +223,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         gpsActivity = new GpsActivity(this ,this);
         gpsActivity.fusedLocationProviderClient.setMockMode(true);
+        gpsActivity.setMockLocation();
 
 
 

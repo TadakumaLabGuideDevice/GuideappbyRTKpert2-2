@@ -91,6 +91,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public TextView statusTx;                   //誘導状況表示
     public static TextView Mag;                 //方位
     public static TextView Mag2;
+    public static TextView Mag3;
 
     //ボタン
     private Button connectBt;

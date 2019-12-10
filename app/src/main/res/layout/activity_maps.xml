@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -54,20 +53,20 @@
         android:id="@+id/stop_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/start_bt"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="0px"
-        android:layout_toEndOf="@+id/start_bt"
+        android:layout_below="@+id/connect_bt"
+        android:layout_alignStart="@+id/connect_bt"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
         android:text="@string/stop" />
 
     <Button
         android:id="@+id/voice_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/stop_bt"
+        android:layout_alignTop="@+id/connect_bt"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="0px"
-        android:layout_toEndOf="@+id/stop_bt"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/save_bt"
         android:text="@string/voice" />
 
     <TextView
@@ -151,6 +150,16 @@
         android:layout_marginTop="5dp"
         android:text="@string/textview"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <Button
+        android:id="@+id/save_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/connect_bt"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/start_bt"
+        android:text="@string/save" />
 
 
 </RelativeLayout>

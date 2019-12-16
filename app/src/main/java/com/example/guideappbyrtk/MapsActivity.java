@@ -650,7 +650,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         private void connect() {
             if (!connectFlg) {
                 try {
-                    // 取得したデバイス名を使ってBluetoothでSocket接続
+                    // 取得したデバイス名を使ってBluetoothでSocket接続(ArduinoのSerialと同じ)
                     mSocket = mDevice.createRfcommSocketToServiceRecord(MY_UUID);
                     mSocket.connect();
                     mmInStream = mSocket.getInputStream();
@@ -892,12 +892,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             else if (-10 <= deg && deg <= 10) direction = "3";  //前　
             else if (10 < deg && deg <= 45) direction = "4";  //右前
             else if (45 < deg) direction = "5";  //右旋回
-
+/*
+            //角度によって呈示する方向を選択                   呈示する方向　盲導盤第3試作機（会沢用）
+            if (deg < -67.5) direction = "1";  //左旋回
+            else if (-67.5 <= deg && deg < -22.5) direction = "2";  //左前
+            else if (-22.5 <= deg && deg <= 22.5) direction = "3";  //前　
+            else if (22.5 < deg && deg <= 67.5) direction = "4";  //右前
+            else if (67.5 < deg) direction = "5";  //右旋回
+*/
             //節電用　呈示する方向が切り替わった時のみ盲導盤へ指令送信
             if (!direction.equals(output)) {
                 output = direction;
                 try {
-                    mmOutputStream.write(output.getBytes());
+                    mmOutputStream.write(output.getBytes()); //arduino側はString v で受け取る
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

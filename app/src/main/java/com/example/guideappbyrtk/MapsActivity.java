@@ -244,6 +244,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             //string型の固定値の比較.equals(string)
             //ペアリング用　盲導盤の回路に搭載されてるbluetoothモジュール参照
             String DEVICE_NAME = "SBDBT-001bdc057cd3";
+            //String DEVICE_NAME = "SBDBT-001bdc087049";
             if(device.getName().equals(DEVICE_NAME)){
 
                 bluetoothState.setText(device.getName());
@@ -793,7 +794,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             statusTx.setText(txt[0]);
 
                             //現在位置と目標マーカーとの距離が2[m]以下になったら目標を次のマーカーへ切り替える
-                            if (results[0] < 2.0) {
+                                if (results[0] < 2.0) {
                                 path_val++;  //次のマーカーの更新
                             }
 
@@ -837,11 +838,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String direction = null;
 
             //角度によって呈示する方向を選択                   呈示する方向
-            if (deg < -45) direction = "1";  //左
+            if (deg < -45) direction = "1";  //左回転
             else if (-45 <= deg && deg < -10) direction = "2";  //左上
             else if (-10 <= deg && deg <= 10) direction = "3";  //上　
             else if (10 < deg && deg <= 45) direction = "4";  //右上
-            else if (45 < deg) direction = "5";  //右
+            else if (45 < deg) direction = "5";  //右回転
 
             //節電用　呈示する方向が切り替わった時のみ盲導盤へ指令送信
             if (!direction.equals(output)) {

@@ -23,5 +23,6 @@
     <string name="no_activity">No Activity</string>
     <string name="Mag">MainTimer value</string>
     <string name="textview">senserClass value</string>
+    <string name="save">SAVE</string>
 
 </resources>

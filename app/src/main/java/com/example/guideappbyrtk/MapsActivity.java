@@ -15,8 +15,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -29,7 +32,6 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,10 +45,13 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -96,13 +101,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button connectBt;
     private Button startBt;
     private Button stopBt;
+    private Button saveBt;
     private Button voiceBt;
 
     //GpsActivityのインスタンス生成
     private GpsActivity gpsActivity;
     private LocationManager manager;
-    private FusedLocationProviderClient fusedLocationProviderClient;
-    Location mockLocation;
     //private Location location;
 
     //Google Maps関連
@@ -170,7 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double[]array1 = new double[val];
     double[]array2 = new double[val];
     //double time_count = 0;
-    //String text;
+    String text;
     int measure_val = 0;
     int hori;
 
@@ -208,6 +212,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         stopBt = findViewById(R.id.stop_bt);
         stopBt.setOnClickListener(new ClickEvent());
+
+        saveBt = findViewById(R.id.save_bt);
+        saveBt.setOnClickListener(new ClickEvent());
 
         voiceBt = findViewById(R.id.voice_bt);
         voiceBt.setOnClickListener(new ClickEvent());
@@ -692,6 +699,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
 
+        private void save(){
+            //内部ストレージにtxtファイル作成
+            String path = Environment.getExternalStorageDirectory().getPath() + "/" +  ".txt";
+            String[] paths = {Environment.getExternalStorageDirectory().toString() + "/" + ".txt"};
+            String[] mimeTypes = {"text/plain"};
+
+            try {
+                FileOutputStream fos = new FileOutputStream(path);
+                OutputStreamWriter osw = new OutputStreamWriter(fos);
+                BufferedWriter bw = new BufferedWriter(osw);
+
+                //誘導経路の緯度経度を記録------------------------------------------------------------------------------------------------
+                text = ("0" + "\t" + "目標緯度" + "\t" + "目標経度");
+                bw.write(text);
+                bw.newLine();
+                text = ("0" + "\t" + startLat+ "\t" + startLng);                               //開始位置の緯度経度
+                bw.write(text);
+                bw.newLine();
+                for (int storage_val = 0; storage_val <= hori; storage_val++) {
+                    text = ("0" + "\t" + pathLat[storage_val] + "\t" + pathLng[storage_val]);  //途中経路の緯度経度
+                    bw.write(text);
+                    bw.newLine();
+                }
+                text = ("0" + "\t" + targetLat+ "\t" + targetLng);                             //目標位置の緯度経度
+                bw.write(text);
+                bw.newLine();
+
+                bw.write(text);
+                bw.newLine();
+                bw.flush();
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+            MediaScannerConnection.scanFile(getApplicationContext(), paths, mimeTypes, new MediaScannerConnection.OnScanCompletedListener() {
+                public void onScanCompleted(String path, Uri uri) {
+                }
+            });
+        }
+
 
         private void voice() {
             if (!targetFlg) {
@@ -729,6 +777,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //STARTボタンイベントここから------------------------------------------------------------------------
         //タイマー割り込みのイベント　スタートボタンを押した際に開始される
+        //ここら辺からアルゴリズムの改善
         public class MainTimerTask extends TimerTask {
             public void run() {
                 final String[] txt = new String[1];
@@ -746,7 +795,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 target_deg = target_deg + 360;
                             }
 
-                            txt[0] = "目的地まで" + results[0] + "[m]  角度：" + target_deg;
+                            txt[0] = "目標点まで" + results[0] + "[m]  角度：" + target_deg;
                             String nowDeg = "" + Deg;
                             Mag.setText(nowDeg);
                             statusTx.setText(txt[0]);
@@ -776,7 +825,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             }
                         }
 
-                        else {  //ルート検索で作成した経路を通過中の際
+                        else {  //ルート検索で作成した経路を通過中の際、ここら辺をいじる
                             Location.distanceBetween(currentLat, currentLng, pathLat[path_val], pathLng[path_val], results);
                             target_deg = (int) results[1] - (int) Deg;                                                          //(Googlemap2点間の角度)　-　(加速度・地磁気センサ)
 
@@ -788,13 +837,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 target_deg = target_deg + 360;
                             }
 
-                            txt[0] =    "目的地まで" + results[0] + "[m]  角度：" + target_deg;
+                            txt[0] =    "目標点まで" + results[0] + "[m]  角度：" + target_deg;
                             String nowDeg = "" + Deg;
                             Mag.setText(nowDeg);
                             statusTx.setText(txt[0]);
 
                             //現在位置と目標マーカーとの距離が2[m]以下になったら目標を次のマーカーへ切り替える
-                                if (results[0] < 2.0) {
+                            if (results[0] < 2.0) {
                                 path_val++;  //次のマーカーの更新
                             }
 
@@ -838,11 +887,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String direction = null;
 
             //角度によって呈示する方向を選択                   呈示する方向
-            if (deg < -45) direction = "1";  //左回転
-            else if (-45 <= deg && deg < -10) direction = "2";  //左上
-            else if (-10 <= deg && deg <= 10) direction = "3";  //上　
-            else if (10 < deg && deg <= 45) direction = "4";  //右上
-            else if (45 < deg) direction = "5";  //右回転
+            if (deg < -45) direction = "1";  //左旋回
+            else if (-45 <= deg && deg < -10) direction = "2";  //左前
+            else if (-10 <= deg && deg <= 10) direction = "3";  //前　
+            else if (10 < deg && deg <= 45) direction = "4";  //右前
+            else if (45 < deg) direction = "5";  //右旋回
 
             //節電用　呈示する方向が切り替わった時のみ盲導盤へ指令送信
             if (!direction.equals(output)) {
